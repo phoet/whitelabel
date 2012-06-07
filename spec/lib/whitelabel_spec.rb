@@ -19,6 +19,12 @@ describe Whitelabel do
       Whitelabel.from_file(path)
     end
 
+    it "should have two different labels" do
+      Whitelabel.find_label('test')[:label_id].should eql('test')
+      Whitelabel.find_label('uschi')[:label_id].should eql('uschi')
+      Whitelabel.find_label('wrong').should be_nil
+    end
+
     it "should work thread safe" do
       Whitelabel.label = :bla
       Thread.new { Whitelabel.label = nil }
@@ -32,6 +38,16 @@ describe Whitelabel do
 
     it "should not find a label for a missing pattern" do
       Whitelabel.label_for('').should be_nil
+    end
+
+    it "should enable a temporary label" do
+      label = Whitelabel.label_for('uschi')
+      Whitelabel.label.should eql(label)
+      tmp = Whitelabel.find_label('test')
+      Whitelabel.with_label(tmp) do
+        Whitelabel.label.should eql(tmp)
+      end
+      Whitelabel.label.should eql(label)
     end
 
     context "with current label" do

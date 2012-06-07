@@ -19,7 +19,21 @@ module Whitelabel
     end
 
     def label_for(pattern, identifier=:label_id)
-      self.label = @labels.find { |label| label.send(identifier) =~ /^#{pattern}$/ }
+      self.label = find_label(pattern, identifier)
+    end
+
+    def find_label(pattern, identifier=:label_id)
+      @labels.find { |label| label.send(identifier) =~ /^#{pattern}$/ }
+    end
+
+    def with_label(tmp=nil)
+      if tmp
+        current_label = self.label
+        self.label = tmp
+      end
+      yield
+    ensure
+      self.label = current_label if current_label
     end
 
     def [](accessor)
