@@ -1,0 +1,7 @@
+---
+- !ruby/struct:Dummy
+  label_id: test
+  name: bla
+- !ruby/struct:Dummy
+  label_id: uschi
+  name: "Uschi Müller"
