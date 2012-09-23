@@ -37,7 +37,12 @@ module Whitelabel
     end
 
     def [](accessor)
+      raise "set a label before calling '#{accessor}'" if self.label.nil?
       self.label.send :"#{accessor}"
+    end
+
+    def reset!
+      Thread.current[:whitelabel] = nil
     end
   end
 end

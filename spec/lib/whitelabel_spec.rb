@@ -3,9 +3,11 @@ require 'spec_helper'
 
 describe Whitelabel do
   let(:path) { fixture_path("whitelabel.yml") }
+  let(:dummy) { Dummy.new('some_id', 'some_name') }
 
   before(:each) do
     Whitelabel.labels = []
+    Whitelabel.reset!
   end
 
   context "initialization" do
@@ -50,13 +52,27 @@ describe Whitelabel do
       Whitelabel.label.should eql(label)
     end
 
+    it "should throw a meaningfull error when no label is set" do
+      expect { Whitelabel[:blame] }.to raise_error("set a label before calling 'blame'")
+    end
+
     context "with current label" do
       before(:each) do
-        Whitelabel.label = Dummy.new('some_id', 'some_name')
+        Whitelabel.label = dummy
       end
 
-      it "should access a label property via []" do
-        Whitelabel[:name].should eql('some_name')
+      context "resetting" do
+        it "should reset the current label" do
+          Whitelabel.label.should be(dummy)
+          Whitelabel.reset!
+          Whitelabel.label.should be_nil
+        end
+      end
+
+      context "accessing values" do
+        it "should access a label property via []" do
+          Whitelabel[:name].should eql('some_name')
+        end
       end
     end
   end
