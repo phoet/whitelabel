@@ -41,7 +41,7 @@ Whitelabel works the same way I18n does, just set it up in your ApplicationContr
     
     def switch_label
       unless Whitelabel.label_for(request.subdomains.first)
-        redirect_to(labels_url(subdomain: false), alert: "Please select a Label!") and return
+        redirect_to(labels_url(subdomain: false), alert: "Please select a Label!")
       end
     end
 
