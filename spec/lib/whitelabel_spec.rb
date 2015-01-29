@@ -21,45 +21,45 @@ describe Whitelabel do
       Whitelabel.from_file(path)
     end
 
-    it "should have two different labels" do
-      Whitelabel.find_label('test')[:label_id].should eql('test')
-      Whitelabel.find_label('uschi')[:label_id].should eql('uschi')
-      Whitelabel.find_label('wrong').should be_nil
+    it "finds two different labels" do
+      expect(Whitelabel.find_label('test')[:label_id]).to eql('test')
+      expect(Whitelabel.find_label('uschi')[:label_id]).to eql('uschi')
+      expect(Whitelabel.find_label('wrong')).to be_nil
     end
 
-    it "should work thread safe" do
+    it "works thread safe" do
       Whitelabel.label = :bla
       Thread.new { Whitelabel.label = nil }
-      Whitelabel.label.should_not be_nil
+      expect(Whitelabel.label).to_not be_nil
     end
 
-    it "should find a label for a pattern" do
-      Whitelabel.label_for('uschi').should_not be_nil
-      Whitelabel.label.name.should eql('Uschi Müller')
+    it "finds a label for a pattern" do
+      expect(Whitelabel.label_for('uschi')).to_not be_nil
+      expect(Whitelabel.label.name).to eql('Uschi Müller')
     end
 
-    it "should not find a label for a missing pattern" do
-      Whitelabel.label_for('').should be_nil
+    it "does not find a label for a missing pattern" do
+      expect(Whitelabel.label_for('')).to be_nil
     end
 
-    it "should enable a temporary label" do
+    it "enables a temporary label" do
       label = Whitelabel.label_for('uschi')
-      Whitelabel.label.should eql(label)
+      expect(Whitelabel.label).to eql(label)
       tmp = Whitelabel.find_label('test')
       Whitelabel.with_label(tmp) do
-        Whitelabel.label.should eql(tmp)
+        expect(Whitelabel.label).to eql(tmp)
       end
-      Whitelabel.label.should eql(label)
+      expect(Whitelabel.label).to eql(label)
     end
 
-    it "should throw a meaningfull error when no label is set" do
+    it "throws a meaningfull error when no label is set" do
       expect { Whitelabel[:blame] }.to raise_error("set a label before calling 'blame'")
     end
 
     context "each_label" do
-      it "should iterate all labels" do
+      it "iterates all labels" do
         names = Whitelabel.each_label { Whitelabel[:name] }
-        names.should eql(["bla", "Uschi Müller"])
+        expect(names).to eql(["bla", "Uschi Müller"])
       end
     end
 
@@ -69,16 +69,16 @@ describe Whitelabel do
       end
 
       context "resetting" do
-        it "should reset the current label" do
-          Whitelabel.label.should be(dummy)
+        it "resets the current label" do
+          expect(Whitelabel.label).to be(dummy)
           Whitelabel.reset!
-          Whitelabel.label.should be_nil
+          expect(Whitelabel.label).to be_nil
         end
       end
 
       context "accessing values" do
-        it "should access a label property via []" do
-          Whitelabel[:name].should eql('some_name')
+        it "accesses a label property via []" do
+          expect(Whitelabel[:name]).to eql('some_name')
         end
       end
     end

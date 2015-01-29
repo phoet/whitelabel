@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Whitelabel::VERSION
 
-  gem.add_development_dependency('rspec', '~> 2.9')
-  gem.add_development_dependency('pry', '~> 0.9')
+  gem.add_development_dependency('rspec', '~> 3.1')
+  gem.add_development_dependency('pry', '~> 0.10')
+  gem.add_development_dependency('rake', '~> 10.4')
 end
