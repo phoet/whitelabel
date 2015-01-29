@@ -2,7 +2,7 @@
 require File.expand_path('../lib/whitelabel/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Peter Schröder"]
+  gem.authors       = ["Peter Schröder"]
   gem.email         = ["phoetmail@googlemail.com"]
   gem.description = gem.summary = %q{This gem helps you providing whitelabel functionality in your application}
   gem.homepage      = "https://github.com/phoet/whitelabel"
