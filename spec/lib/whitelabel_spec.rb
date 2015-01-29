@@ -56,6 +56,13 @@ describe Whitelabel do
       expect { Whitelabel[:blame] }.to raise_error("set a label before calling 'blame'")
     end
 
+    context "each_label" do
+      it "should iterate all labels" do
+        names = Whitelabel.each_label { Whitelabel[:name] }
+        names.should eql(["bla", "Uschi Müller"])
+      end
+    end
+
     context "with current label" do
       before(:each) do
         Whitelabel.label = dummy

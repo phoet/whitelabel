@@ -36,6 +36,10 @@ module Whitelabel
       self.label = current_label if current_label
     end
 
+    def each_label(&block)
+      labels.map { |label| with_label(label, &block) }
+    end
+
     def [](accessor)
       raise "set a label before calling '#{accessor}'" if self.label.nil?
       self.label.send :"#{accessor}"
