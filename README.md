@@ -6,15 +6,21 @@ This gem helps you providing whitelabel functionality in your application.
 
 Add this line to your application's Gemfile:
 
-    gem 'whitelabel'
+```ruby
+gem 'whitelabel'
+```
 
 And then execute:
 
-    $ bundle
+```bash
+bundle install
+```
 
 Or install it yourself as:
 
-    $ gem install whitelabel
+```bash
+gem install whitelabel
+```
 
 ## Usage
 
@@ -22,20 +28,25 @@ You can start with a pretty simple, file driven whitelabel configuration.
 
 All you need is a config file:
 
-    # config/whitelabel.yaml
-    ---
-    - !ruby/struct:YourLabelClass
-      label_id: "white"
-      some_config: "for your application"
+```yaml
+# config/whitelabel.yaml
+---
+- !ruby/struct:YourLabelClass
+  label_id: "white"
+  some_config: "for your application"
+```
 
 and an initializer:
 
-    # config/initializers/whitelabel.rb
-    YourLabelClass = Struct.new :label_id, :some_config
-    Whitelabel.from_file Rails.root.join("config/whitelabel.yml")
+```ruby
+# config/initializers/whitelabel.rb
+YourLabelClass = Struct.new :label_id, :some_config
+Whitelabel.from_file Rails.root.join("config/whitelabel.yml")
+```
 
 Whitelabel works the same way I18n does, just set it up in your ApplicationController:
 
+```ruby
     # app/controllers/application_controller.rb
     before_filter :switch_label
     
@@ -44,6 +55,7 @@ Whitelabel works the same way I18n does, just set it up in your ApplicationContr
         redirect_to(labels_url(subdomain: false), alert: "Please select a Label!")
       end
     end
+```
 
 This example uses the subdomain to determine which label should be active, but you can implement whatever you like here.
 
