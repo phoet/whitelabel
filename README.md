@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/phoet/whitelabel.svg?branch=master)](https://travis-ci.org/phoet/whitelabel)
+
 # Whitelabel
 
 This gem helps you providing whitelabel functionality in your application.
