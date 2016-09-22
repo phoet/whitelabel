@@ -1,6 +1,5 @@
 require "whitelabel"
-
-require "pry"
+require "byebug"
 
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true

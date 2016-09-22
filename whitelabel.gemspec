@@ -15,6 +15,6 @@ Gem::Specification.new do |gem|
   gem.version       = Whitelabel::VERSION
 
   gem.add_development_dependency('rspec', '~> 3.1')
-  gem.add_development_dependency('pry', '~> 0.10')
-  gem.add_development_dependency('rake', '~> 10.4')
+  gem.add_development_dependency('byebug', '~> 9.0')
+  gem.add_development_dependency('rake', '~> 11.3')
 end

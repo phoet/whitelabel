@@ -1,7 +1,6 @@
 script: "bundle exec rspec"
 rvm:
-  - 1.9.3
-  - 2.2.0
+  - 2.3.0
   - rbx
   - ruby-head
   - jruby
