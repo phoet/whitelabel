@@ -3,7 +3,7 @@ module Whitelabel
     attr_accessor :labels
 
     def from_file(path)
-      @labels = File.open(path) { |file| YAML.load(file) }
+      @labels = File.open(path) { |file| YAML.unsafe_load(file) }
     end
 
     def label
@@ -14,15 +14,15 @@ module Whitelabel
       Thread.current[:whitelabel] = label
     end
 
-    def label_for(pattern, identifier=:label_id)
+    def label_for(pattern, identifier = :label_id)
       self.label = find_label(pattern, identifier)
     end
 
-    def find_label(pattern, identifier=:label_id)
+    def find_label(pattern, identifier = :label_id)
       @labels.find { |label| label.send(identifier) =~ /^#{pattern}$/ }
     end
 
-    def with_label(tmp=nil)
+    def with_label(tmp = nil)
       if tmp
         current_label = self.label
         self.label = tmp
